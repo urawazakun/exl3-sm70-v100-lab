@@ -99,6 +99,13 @@ In the MMA8 verify loop, **~76 % of the instructions are index/address arithmeti
    launching work.
 9. **Regression gates**: use a fp32 reference, perplexity and a ≥20-prompt acceptance average. "Greedy bytes
    match" is not a gate — adding in a different order changes the trajectory.
+10. **The `FA_ALL_QUANTS` trap has already fooled an operator.** This lab's launch script carried the note
+    *"q5_1 is pathological on this fork (20.95 tok/s) — do not use it"*. That 20.95 tok/s **is** the
+    flash-attention fallback penalty: `q5_1` is not FA-capable in a default build, so the server silently drops
+    FA and loses about a third of its decode speed. Rebuilt with `GGML_CUDA_FA_ALL_QUANTS=ON` (trap 1), the
+    same `-ctk q5_1 -ctv q4_0` runs **32.24 / 29.20 / 21.58 tok/s at 6k / 23.7k / 71k** — the same band as
+    `q4_0/q4_0` — costs **+234 MiB** of KV at 128k (15,263 / 995 free), and scores **PPL 4.5880 vs 4.5991** on
+    the same corpus. The verdict "this cache type is bad" was really "this build cannot feed it".
 
 ## 4. What did **not** work (all measured here)
 
@@ -112,16 +119,30 @@ In the MMA8 verify loop, **~76 % of the instructions are index/address arithmeti
 | DSpark / DFlash2 / EAGLE3 / CPU-resident drafters / a Volta attention fork | all net losses or unavailable in this fork (details in `measurements/`) |
 | "8 warps/block" for the MMA8 kernel | at REG 95 it *lowers* occupancy (256 threads × 95 regs = 2 blocks = 16 warps/SM vs 20 today) |
 
-## 5. What is still open (honest list)
+## 5. What measuring harder changed (and what is still open)
 
-* The in-server **draft/verify/remainder decomposition does not close**: 8.14 + 70.25 + 0.0014 = 78.39 ms
-  against an 87.66 ms round → **10.6 % unaccounted**. The 70.25 ms "verify" figure was *not* a kernel
-  measurement (it was a whole-model `llama-bench -p 4` on a binary without MMA8) — see
-  `measurements/27-AUDIT-B-do-the-numbers-close.md`.
-* The apparent **10–12 % deployment-vs-lab binary gap** has no matched A/B yet.
-* Same flags produced **acceptance 0.683 (one run) vs 0.615 (others)** — unresolved.
-* Draft-only vocabulary limiting: a coverage curve says 99 % of the head needs **28.7 % of the 128-column
-  blocks** (556/1940), i.e. it should save ~2.0 GB of the ~16.1 GB round. Not implemented yet.
+A single GPU lock with a synchronized spec-phase timer and a floor of bench arms resolved most of the
+contradictions this repository started with:
+
+* **Draft cost is ≈ 10.56 ms per round** (synchronized timer, 180 rounds). The old "17.5 ms, mostly the K=6
+  head" figure was a subtraction from a different era. The decomposition still does not close cleanly — the
+  remainder swallows async verify + sampling — so a corrected timer run is queued.
+* **"The deployment is slower" is real**, and the cause is **context size and mmproj shape, not kernels**: with
+  matched flags the lab and deployed arms produce **byte-identical acceptance streams (343/502)**, so the
+  earlier "0.615 vs 0.683 acceptance" discrepancy was a **kernel-order artefact**, and the config-delta
+  hypothesis (build flags) is dead.
+* **Target-side sampling is not the missing time** (`-bs` Δ < 1 %, identical output streams).
+* **CUDA graphs are worth +2.6 % in the bench only** — the server ignores `GGML_CUDA_DISABLE_GRAPHS` and keeps
+  reusing graphs (177–253 reuses observed), so server-side "graphs off" measurements measure graphs on.
+* **The long-context slope is 2.2× the kill threshold** (0.15 ms/1k) — attention at depth really does cost,
+  which reopens the case for porting a Volta attention kernel.
+* **Draft-only vocabulary cap is worth building**: 99 % of the head's mass sits in **35.8 %** of the 128-column
+  blocks (B=694 of 1940), i.e. ≈ 2.0 GB of the ~16.1 GB round, with verification on the full head so outputs
+  are unchanged. Not implemented yet.
+* **The MMA8 kernel's own bandwidth and its true share of the round are still unmeasured** (the event-bin
+  round-robin aliases, so absolute bin times overcount 1.4–1.7×; ratios are the usable part), and the
+  "affine fold" (−40 instructions per iteration, see `measurements/advisor-tensorcore-decode-verdict.md`) is
+  untested.
 
 ## 6. Reproducing the measurements
 
