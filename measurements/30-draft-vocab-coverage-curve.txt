@@ -1,0 +1,53 @@
+TASK 2B: HEAD COVERAGE-vs-B CURVE (draft-only vocab limit, exact 6-bit head)
+CMDS:
+  python H:/exl3-lab/logs/brief30/t2B_collect.py   # tokenize streams via qwen-target/tokenizer.json (tokenizers pkg)
+  python H:/exl3-lab/logs/brief30/t2B_curve.py     # block-frequency cumulative coverage
+  python H:/exl3-lab/logs/brief30/t2B_sens.py      # sensitivity splits
+
+METHOD: no GPU. Tokenizer = H:/exl3-lab/models/qwen-target/tokenizer.json (vocab 248077, matches 248320-row head incl. added tokens).
+Streams tokenized (ids saved in t2B_ids.json):
+  base.decode EN-operator: lang=en nchars=1798 ntokens=512
+  base.nothink EN-operator: lang=en nchars=853 ntokens=256
+  srv-kt2/decode0 EN-operator: lang=en nchars=1007 ntokens=256
+  srv-kt2/decode1 EN-operator: lang=en nchars=1007 ntokens=256
+  srv-kt2/decode2 EN-operator: lang=en nchars=1007 ntokens=256
+  prefix-8k: lang=mix nchars=17955 ntokens=4501
+  ppl-corpus: lang=en nchars=175075 ntokens=57220
+  JP-operator-synthetic: lang=ja nchars=161 ntokens=113
+Total 63370 tokens, 5871 unique ids; 5741/5871 overlap draft-vocab-32k.json (same population).
+Frequency = observed unigram counts + 1.0 per draft-vocab id (prior: that list = top-N over 60k+ observed tokens, 100% cov at N=8192).
+Block b = id//128, B of 1940 blocks; block mass = sum of member-id mass. Draft argmax restricted to first-B-block set; verify keeps full head.
+
+--- COVERAGE CURVE (primary: observed + draft-vocab prior) ---
+  B=    1 (  0.1% of blocks): coverage= 28.032%  draft-head-read=   0.5 MB (full=953.5 MB)
+  B=    5 (  0.3% of blocks): coverage= 49.490%  draft-head-read=   2.5 MB (full=953.5 MB)
+  B=   10 (  0.5% of blocks): coverage= 56.713%  draft-head-read=   4.9 MB (full=953.5 MB)
+  B=   25 (  1.3% of blocks): coverage= 65.674%  draft-head-read=  12.3 MB (full=953.5 MB)
+  B=   50 (  2.6% of blocks): coverage= 73.941%  draft-head-read=  24.6 MB (full=953.5 MB)
+  B=  100 (  5.2% of blocks): coverage= 82.184%  draft-head-read=  49.2 MB (full=953.5 MB)
+  B=  190 (  9.8% of blocks): coverage= 90.028%  draft-head-read=  93.4 MB (full=953.5 MB)
+  B=  200 ( 10.3% of blocks): coverage= 90.621%  draft-head-read=  98.3 MB (full=953.5 MB)
+  B=  300 ( 15.5% of blocks): coverage= 94.788%  draft-head-read= 147.5 MB (full=953.5 MB)
+  B=  308 ( 15.9% of blocks): coverage= 95.028%  draft-head-read= 151.4 MB (full=953.5 MB)
+  B=  400 ( 20.6% of blocks): coverage= 97.095%  draft-head-read= 196.6 MB (full=953.5 MB)
+  B=  500 ( 25.8% of blocks): coverage= 98.467%  draft-head-read= 245.8 MB (full=953.5 MB)
+  B=  556 ( 28.7% of blocks): coverage= 99.005%  draft-head-read= 273.3 MB (full=953.5 MB)
+  B=  600 ( 30.9% of blocks): coverage= 99.339%  draft-head-read= 294.9 MB (full=953.5 MB)
+  B=  700 ( 36.1% of blocks): coverage= 99.782%  draft-head-read= 344.1 MB (full=953.5 MB)
+  B=  741 ( 38.2% of blocks): coverage= 99.900%  draft-head-read= 364.2 MB (full=953.5 MB)
+  B=  751 ( 38.7% of blocks): coverage= 99.929%  draft-head-read= 369.1 MB (full=953.5 MB)
+
+--- SENSITIVITY (no-prior variants; B for 90/95/99/99.9) ---
+  ALL-streams-no-prior      : B=155/258/505/725
+  EN-only-no-prior          : B=153/254/492/685
+  JP-only-no-prior (113tok) : B=54/60/64/65 (tiny sample; JP ids fall in already-hot low blocks)
+  ALL+each-dv-id-once(primary): B=190/308/556/741
+  draft-vocab-uniform (worst): B=417/528/694/746  <- even uniform over the 5797 known ids needs only 694 blocks for 99%
+
+--- HEAD-READ MATH ---
+  Full head (output.trellis) = 953548800 B = 0.954 GB (matches bench21b.journal.txt:37 'head bytes per full read: 0.954 GB').
+  Per 128-col block = 491520 B. Draft runs head 3x/round (k=3): full = 2.86 GB/round.
+  At B=556 (99%): draft head 3x273.3 MB = 0.82 GB/round, saves ~2.04 GB/round (~12.7% of the ~16.1 GB round).
+
+RESULT: 99% coverage needs B=556 of 1940 blocks = 28.7% (threshold 50% = 970 blocks).
+VERDICT: KEEP L (99% coverage needs <= 50% of blocks)

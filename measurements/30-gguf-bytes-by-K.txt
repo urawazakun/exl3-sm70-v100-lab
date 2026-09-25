@@ -1,0 +1,1737 @@
+TASK 2A: BYTE CENSUS BY K (MTP gguf, header-only parse)
+CMD: python H:/exl3-lab/logs/brief30/t2A_census.py
+FILE: H:/exl3-lab/models/exl3-gguf/huihui-qwen3.8-27b-abliterated-exl3-3bpw-mtp.gguf size=12914559712
+n_tensors=1684
+
+K-mapping rule: EXL3 trellis shape is I16 [16*K, n/16, k/16], so K = shape[0]/16.
+  dim0=48 -> K=3 | dim0=64 -> K=4 | dim0=96 -> K=6.
+  suh/svh (F16 scales, per-row/col) inherit K of sibling trellis (same layer+proj).
+  token_embd/norms/bias/ssm scalars are NOT matmul weights (no K).
+
+--- TRELLIS BY (name-pattern, K, shape): count x per-tensor bytes = subtotal ---
+  K=3 count=  64 per=    33423360 total=   2139095040 shape=(48, 320, 1088) :: blk.N.ffn_down.trellis
+  K=3 count=  64 per=    33423360 total=   2139095040 shape=(48, 1088, 320) :: blk.N.ffn_gate.trellis
+  K=3 count=  64 per=    33423360 total=   2139095040 shape=(48, 1088, 320) :: blk.N.ffn_up.trellis
+  K=6 count=   1 per=   953548800 total=    953548800 shape=(96, 15520, 320) :: output.trellis
+  K=3 count=  48 per=    19660800 total=    943718400 shape=(48, 640, 320) :: blk.N.attn_qkv.trellis
+  K=3 count=  48 per=    11796480 total=    566231040 shape=(48, 384, 320) :: blk.N.attn_gate.trellis
+  K=3 count=  48 per=    11796480 total=    566231040 shape=(48, 320, 384) :: blk.N.ssm_out.trellis
+  K=3 count=  16 per=    23592960 total=    377487360 shape=(48, 768, 320) :: blk.N.attn_q.trellis
+  K=3 count=  16 per=    11796480 total=    188743680 shape=(48, 320, 384) :: blk.N.attn_output.trellis
+  K=4 count=   1 per=    44564480 total=     44564480 shape=(64, 320, 1088) :: blk.N.ffn_down.trellis
+  K=4 count=   1 per=    44564480 total=     44564480 shape=(64, 1088, 320) :: blk.N.ffn_gate.trellis
+  K=4 count=   1 per=    44564480 total=     44564480 shape=(64, 1088, 320) :: blk.N.ffn_up.trellis
+  K=3 count=  16 per=     1966080 total=     31457280 shape=(48, 64, 320) :: blk.N.attn_k.trellis
+  K=3 count=  16 per=     1966080 total=     31457280 shape=(48, 64, 320) :: blk.N.attn_v.trellis
+  K=4 count=   1 per=    31457280 total=     31457280 shape=(64, 768, 320) :: blk.N.attn_q.trellis
+  K=4 count=   1 per=    26214400 total=     26214400 shape=(64, 320, 640) :: blk.N.nextn.eh_proj.trellis
+  K=4 count=   1 per=    15728640 total=     15728640 shape=(64, 320, 384) :: blk.N.attn_output.trellis
+  K=4 count=   1 per=     2621440 total=      2621440 shape=(64, 64, 320) :: blk.N.attn_k.trellis
+  K=4 count=   1 per=     2621440 total=      2621440 shape=(64, 64, 320) :: blk.N.attn_v.trellis
+
+--- FULL TENSOR LIST (name | type | shape | n_bytes | K) ---
+  token_embd.weight | 1 | (5120, 248320) | 2542796800 | -
+  blk.0.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.0.ssm_a | 0 | (48,) | 192 | -
+  blk.0.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.0.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.0.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.0.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.0.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.0.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.1.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.1.ssm_a | 0 | (48,) | 192 | -
+  blk.1.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.1.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.1.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.1.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.1.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.1.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.10.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.10.ssm_a | 0 | (48,) | 192 | -
+  blk.10.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.10.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.10.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.10.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.10.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.10.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.11.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.11.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.11.attn_k_norm.weight | 0 | (256,) | 1024 | -
+  blk.11.attn_q_norm.weight | 0 | (256,) | 1024 | -
+  blk.2.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.2.ssm_a | 0 | (48,) | 192 | -
+  blk.2.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.2.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.2.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.2.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.2.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.2.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.3.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.3.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.3.attn_k_norm.weight | 0 | (256,) | 1024 | -
+  blk.3.attn_q_norm.weight | 0 | (256,) | 1024 | -
+  blk.4.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.4.ssm_a | 0 | (48,) | 192 | -
+  blk.4.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.4.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.4.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.4.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.4.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.4.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.5.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.5.ssm_a | 0 | (48,) | 192 | -
+  blk.5.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.5.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.5.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.5.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.5.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.5.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.6.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.6.ssm_a | 0 | (48,) | 192 | -
+  blk.6.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.6.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.6.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.6.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.6.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.6.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.7.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.7.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.7.attn_k_norm.weight | 0 | (256,) | 1024 | -
+  blk.7.attn_q_norm.weight | 0 | (256,) | 1024 | -
+  blk.8.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.8.ssm_a | 0 | (48,) | 192 | -
+  blk.8.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.8.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.8.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.8.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.8.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.8.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.9.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.9.ssm_a | 0 | (48,) | 192 | -
+  blk.9.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.9.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.9.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.9.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.9.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.9.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.12.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.12.ssm_a | 0 | (48,) | 192 | -
+  blk.12.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.12.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.12.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.12.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.12.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.12.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.13.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.13.ssm_a | 0 | (48,) | 192 | -
+  blk.13.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.13.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.13.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.13.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.13.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.13.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.14.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.14.ssm_a | 0 | (48,) | 192 | -
+  blk.14.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.14.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.14.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.14.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.14.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.14.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.15.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.15.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.15.attn_k_norm.weight | 0 | (256,) | 1024 | -
+  blk.15.attn_q_norm.weight | 0 | (256,) | 1024 | -
+  blk.16.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.16.ssm_a | 0 | (48,) | 192 | -
+  blk.16.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.16.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.16.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.16.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.16.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.16.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.17.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.17.ssm_a | 0 | (48,) | 192 | -
+  blk.17.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.17.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.17.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.17.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.17.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.17.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.18.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.18.ssm_a | 0 | (48,) | 192 | -
+  blk.18.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.18.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.18.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.18.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.18.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.18.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.19.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.19.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.19.attn_k_norm.weight | 0 | (256,) | 1024 | -
+  blk.19.attn_q_norm.weight | 0 | (256,) | 1024 | -
+  blk.20.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.20.ssm_a | 0 | (48,) | 192 | -
+  blk.20.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.20.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.20.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.20.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.20.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.20.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.21.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.21.ssm_a | 0 | (48,) | 192 | -
+  blk.21.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.21.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.21.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.21.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.21.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.21.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.22.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.22.ssm_a | 0 | (48,) | 192 | -
+  blk.22.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.22.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.22.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.22.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.22.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.22.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.23.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.23.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.23.attn_k_norm.weight | 0 | (256,) | 1024 | -
+  blk.23.attn_q_norm.weight | 0 | (256,) | 1024 | -
+  blk.24.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.24.ssm_a | 0 | (48,) | 192 | -
+  blk.24.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.24.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.24.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.24.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.24.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.24.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.25.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.25.ssm_a | 0 | (48,) | 192 | -
+  blk.25.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.25.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.25.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.25.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.25.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.25.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.26.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.26.ssm_a | 0 | (48,) | 192 | -
+  blk.26.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.26.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.26.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.26.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.26.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.26.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.27.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.27.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.27.attn_k_norm.weight | 0 | (256,) | 1024 | -
+  blk.27.attn_q_norm.weight | 0 | (256,) | 1024 | -
+  blk.28.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.28.ssm_a | 0 | (48,) | 192 | -
+  blk.28.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.28.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.28.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.28.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.28.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.28.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.29.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.29.ssm_a | 0 | (48,) | 192 | -
+  blk.29.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.29.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.29.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.29.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.29.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.29.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.30.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.30.ssm_a | 0 | (48,) | 192 | -
+  blk.30.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.30.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.30.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.30.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.30.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.30.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.31.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.31.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.31.attn_k_norm.weight | 0 | (256,) | 1024 | -
+  blk.31.attn_q_norm.weight | 0 | (256,) | 1024 | -
+  blk.32.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.32.ssm_a | 0 | (48,) | 192 | -
+  blk.32.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.32.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.32.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.32.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.32.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.32.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.33.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.33.ssm_a | 0 | (48,) | 192 | -
+  blk.33.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.33.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.33.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.33.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.33.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.33.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.34.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.34.ssm_a | 0 | (48,) | 192 | -
+  blk.34.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.34.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.34.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.34.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.34.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.34.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.35.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.35.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.35.attn_k_norm.weight | 0 | (256,) | 1024 | -
+  blk.35.attn_q_norm.weight | 0 | (256,) | 1024 | -
+  blk.36.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.36.ssm_a | 0 | (48,) | 192 | -
+  blk.36.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.36.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.36.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.36.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.36.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.36.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.37.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.37.ssm_a | 0 | (48,) | 192 | -
+  blk.37.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.37.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.37.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.37.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.37.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.37.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.38.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.38.ssm_a | 0 | (48,) | 192 | -
+  blk.38.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.38.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.38.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.38.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.38.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.38.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.39.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.39.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.39.attn_k_norm.weight | 0 | (256,) | 1024 | -
+  blk.39.attn_q_norm.weight | 0 | (256,) | 1024 | -
+  blk.40.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.40.ssm_a | 0 | (48,) | 192 | -
+  blk.40.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.40.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.40.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.40.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.40.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.40.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.41.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.41.ssm_a | 0 | (48,) | 192 | -
+  blk.41.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.41.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.41.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.41.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.41.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.41.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.42.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.42.ssm_a | 0 | (48,) | 192 | -
+  blk.42.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.42.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.42.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.42.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.42.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.42.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.43.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.43.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.43.attn_k_norm.weight | 0 | (256,) | 1024 | -
+  blk.43.attn_q_norm.weight | 0 | (256,) | 1024 | -
+  blk.44.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.44.ssm_a | 0 | (48,) | 192 | -
+  blk.44.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.44.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.44.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.44.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.44.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.44.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.45.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.45.ssm_a | 0 | (48,) | 192 | -
+  blk.45.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.45.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.45.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.45.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.45.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.45.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.46.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.46.ssm_a | 0 | (48,) | 192 | -
+  blk.46.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.46.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.46.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.46.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.46.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.46.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.47.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.47.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.47.attn_k_norm.weight | 0 | (256,) | 1024 | -
+  blk.47.attn_q_norm.weight | 0 | (256,) | 1024 | -
+  blk.48.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.48.ssm_a | 0 | (48,) | 192 | -
+  blk.48.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.48.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.48.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.48.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.48.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.48.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.49.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.49.ssm_a | 0 | (48,) | 192 | -
+  blk.49.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.49.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.49.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.49.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.49.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.49.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.50.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.50.ssm_a | 0 | (48,) | 192 | -
+  blk.50.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.50.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.50.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.50.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.50.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.50.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.51.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.51.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.51.attn_k_norm.weight | 0 | (256,) | 1024 | -
+  blk.51.attn_q_norm.weight | 0 | (256,) | 1024 | -
+  blk.52.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.52.ssm_a | 0 | (48,) | 192 | -
+  blk.52.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.52.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.52.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.52.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.52.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.52.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.53.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.53.ssm_a | 0 | (48,) | 192 | -
+  blk.53.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.53.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.53.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.53.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.53.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.53.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.54.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.54.ssm_a | 0 | (48,) | 192 | -
+  blk.54.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.54.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.54.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.54.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.54.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.54.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.55.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.55.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.55.attn_k_norm.weight | 0 | (256,) | 1024 | -
+  blk.55.attn_q_norm.weight | 0 | (256,) | 1024 | -
+  blk.56.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.56.ssm_a | 0 | (48,) | 192 | -
+  blk.56.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.56.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.56.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.56.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.56.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.56.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.57.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.57.ssm_a | 0 | (48,) | 192 | -
+  blk.57.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.57.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.57.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.57.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.57.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.57.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.58.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.58.ssm_a | 0 | (48,) | 192 | -
+  blk.58.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.58.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.58.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.58.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.58.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.58.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.59.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.59.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.59.attn_k_norm.weight | 0 | (256,) | 1024 | -
+  blk.59.attn_q_norm.weight | 0 | (256,) | 1024 | -
+  blk.60.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.60.ssm_a | 0 | (48,) | 192 | -
+  blk.60.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.60.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.60.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.60.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.60.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.60.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.61.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.61.ssm_a | 0 | (48,) | 192 | -
+  blk.61.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.61.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.61.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.61.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.61.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.61.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.62.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.62.ssm_a | 0 | (48,) | 192 | -
+  blk.62.ssm_conv1d.weight | 0 | (4, 10240) | 163840 | -
+  blk.62.ssm_dt.bias | 0 | (48,) | 192 | -
+  blk.62.ssm_alpha.weight | 1 | (5120, 48) | 491520 | -
+  blk.62.ssm_beta.weight | 1 | (5120, 48) | 491520 | -
+  blk.62.ssm_norm.weight | 0 | (128,) | 512 | -
+  blk.62.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.63.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.63.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.63.attn_k_norm.weight | 0 | (256,) | 1024 | -
+  blk.63.attn_q_norm.weight | 0 | (256,) | 1024 | -
+  output_norm.weight | 0 | (5120,) | 20480 | -
+  blk.64.nextn.enorm.weight | 0 | (5120,) | 20480 | -
+  blk.64.nextn.hnorm.weight | 0 | (5120,) | 20480 | -
+  blk.64.attn_norm.weight | 0 | (5120,) | 20480 | -
+  blk.64.post_attention_norm.weight | 0 | (5120,) | 20480 | -
+  blk.64.attn_k_norm.weight | 0 | (256,) | 1024 | -
+  blk.64.attn_q_norm.weight | 0 | (256,) | 1024 | -
+  blk.64.nextn.shared_head_norm.weight | 0 | (5120,) | 20480 | -
+  output.trellis | 25 | (96, 15520, 320) | 953548800 | K=6
+  output.suh | 1 | (5120,) | 10240 | K=6
+  output.svh | 1 | (248320,) | 496640 | K=6
+  blk.0.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.0.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.0.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.0.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.0.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.0.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.0.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.0.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.0.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.0.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.0.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.0.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.0.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.0.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.0.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.0.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.0.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.0.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.1.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.1.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.1.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.1.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.1.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.1.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.1.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.1.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.1.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.1.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.1.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.1.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.1.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.1.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.1.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.1.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.1.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.1.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.10.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.10.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.10.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.10.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.10.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.10.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.10.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.10.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.10.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.10.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.10.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.10.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.10.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.10.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.10.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.10.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.10.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.10.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.11.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.11.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.11.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.11.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.11.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.11.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.11.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.11.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.11.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.11.attn_k.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.11.attn_k.suh | 1 | (5120,) | 10240 | K=3
+  blk.11.attn_k.svh | 1 | (1024,) | 2048 | K=3
+  blk.11.attn_output.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.11.attn_output.suh | 1 | (6144,) | 12288 | K=3
+  blk.11.attn_output.svh | 1 | (5120,) | 10240 | K=3
+  blk.11.attn_q.trellis | 25 | (48, 768, 320) | 23592960 | K=3
+  blk.11.attn_q.suh | 1 | (5120,) | 10240 | K=3
+  blk.11.attn_q.svh | 1 | (12288,) | 24576 | K=3
+  blk.11.attn_v.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.11.attn_v.suh | 1 | (5120,) | 10240 | K=3
+  blk.11.attn_v.svh | 1 | (1024,) | 2048 | K=3
+  blk.12.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.12.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.12.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.12.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.12.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.12.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.12.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.12.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.12.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.12.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.12.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.12.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.12.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.12.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.12.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.12.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.12.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.12.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.13.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.13.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.13.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.13.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.13.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.13.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.13.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.13.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.13.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.13.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.13.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.13.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.13.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.13.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.13.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.13.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.13.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.13.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.14.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.14.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.14.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.14.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.14.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.14.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.14.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.14.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.14.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.14.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.14.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.14.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.14.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.14.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.14.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.14.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.14.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.14.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.15.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.15.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.15.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.15.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.15.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.15.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.15.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.15.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.15.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.15.attn_k.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.15.attn_k.suh | 1 | (5120,) | 10240 | K=3
+  blk.15.attn_k.svh | 1 | (1024,) | 2048 | K=3
+  blk.15.attn_output.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.15.attn_output.suh | 1 | (6144,) | 12288 | K=3
+  blk.15.attn_output.svh | 1 | (5120,) | 10240 | K=3
+  blk.15.attn_q.trellis | 25 | (48, 768, 320) | 23592960 | K=3
+  blk.15.attn_q.suh | 1 | (5120,) | 10240 | K=3
+  blk.15.attn_q.svh | 1 | (12288,) | 24576 | K=3
+  blk.15.attn_v.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.15.attn_v.suh | 1 | (5120,) | 10240 | K=3
+  blk.15.attn_v.svh | 1 | (1024,) | 2048 | K=3
+  blk.16.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.16.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.16.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.16.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.16.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.16.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.16.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.16.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.16.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.16.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.16.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.16.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.16.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.16.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.16.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.16.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.16.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.16.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.17.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.17.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.17.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.17.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.17.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.17.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.17.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.17.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.17.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.17.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.17.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.17.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.17.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.17.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.17.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.17.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.17.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.17.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.18.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.18.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.18.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.18.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.18.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.18.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.18.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.18.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.18.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.18.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.18.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.18.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.18.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.18.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.18.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.18.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.18.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.18.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.19.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.19.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.19.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.19.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.19.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.19.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.19.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.19.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.19.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.19.attn_k.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.19.attn_k.suh | 1 | (5120,) | 10240 | K=3
+  blk.19.attn_k.svh | 1 | (1024,) | 2048 | K=3
+  blk.19.attn_output.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.19.attn_output.suh | 1 | (6144,) | 12288 | K=3
+  blk.19.attn_output.svh | 1 | (5120,) | 10240 | K=3
+  blk.19.attn_q.trellis | 25 | (48, 768, 320) | 23592960 | K=3
+  blk.19.attn_q.suh | 1 | (5120,) | 10240 | K=3
+  blk.19.attn_q.svh | 1 | (12288,) | 24576 | K=3
+  blk.19.attn_v.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.19.attn_v.suh | 1 | (5120,) | 10240 | K=3
+  blk.19.attn_v.svh | 1 | (1024,) | 2048 | K=3
+  blk.2.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.2.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.2.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.2.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.2.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.2.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.2.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.2.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.2.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.2.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.2.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.2.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.2.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.2.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.2.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.2.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.2.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.2.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.20.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.20.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.20.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.20.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.20.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.20.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.20.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.20.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.20.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.20.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.20.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.20.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.20.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.20.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.20.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.20.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.20.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.20.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.21.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.21.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.21.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.21.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.21.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.21.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.21.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.21.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.21.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.21.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.21.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.21.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.21.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.21.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.21.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.21.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.21.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.21.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.22.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.22.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.22.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.22.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.22.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.22.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.22.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.22.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.22.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.22.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.22.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.22.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.22.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.22.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.22.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.22.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.22.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.22.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.23.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.23.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.23.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.23.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.23.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.23.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.23.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.23.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.23.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.23.attn_k.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.23.attn_k.suh | 1 | (5120,) | 10240 | K=3
+  blk.23.attn_k.svh | 1 | (1024,) | 2048 | K=3
+  blk.23.attn_output.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.23.attn_output.suh | 1 | (6144,) | 12288 | K=3
+  blk.23.attn_output.svh | 1 | (5120,) | 10240 | K=3
+  blk.23.attn_q.trellis | 25 | (48, 768, 320) | 23592960 | K=3
+  blk.23.attn_q.suh | 1 | (5120,) | 10240 | K=3
+  blk.23.attn_q.svh | 1 | (12288,) | 24576 | K=3
+  blk.23.attn_v.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.23.attn_v.suh | 1 | (5120,) | 10240 | K=3
+  blk.23.attn_v.svh | 1 | (1024,) | 2048 | K=3
+  blk.24.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.24.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.24.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.24.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.24.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.24.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.24.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.24.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.24.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.24.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.24.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.24.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.24.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.24.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.24.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.24.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.24.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.24.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.25.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.25.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.25.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.25.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.25.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.25.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.25.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.25.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.25.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.25.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.25.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.25.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.25.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.25.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.25.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.25.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.25.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.25.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.26.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.26.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.26.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.26.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.26.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.26.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.26.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.26.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.26.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.26.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.26.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.26.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.26.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.26.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.26.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.26.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.26.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.26.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.27.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.27.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.27.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.27.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.27.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.27.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.27.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.27.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.27.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.27.attn_k.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.27.attn_k.suh | 1 | (5120,) | 10240 | K=3
+  blk.27.attn_k.svh | 1 | (1024,) | 2048 | K=3
+  blk.27.attn_output.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.27.attn_output.suh | 1 | (6144,) | 12288 | K=3
+  blk.27.attn_output.svh | 1 | (5120,) | 10240 | K=3
+  blk.27.attn_q.trellis | 25 | (48, 768, 320) | 23592960 | K=3
+  blk.27.attn_q.suh | 1 | (5120,) | 10240 | K=3
+  blk.27.attn_q.svh | 1 | (12288,) | 24576 | K=3
+  blk.27.attn_v.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.27.attn_v.suh | 1 | (5120,) | 10240 | K=3
+  blk.27.attn_v.svh | 1 | (1024,) | 2048 | K=3
+  blk.28.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.28.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.28.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.28.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.28.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.28.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.28.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.28.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.28.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.28.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.28.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.28.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.28.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.28.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.28.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.28.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.28.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.28.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.29.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.29.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.29.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.29.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.29.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.29.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.29.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.29.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.29.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.29.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.29.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.29.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.29.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.29.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.29.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.29.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.29.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.29.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.3.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.3.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.3.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.3.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.3.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.3.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.3.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.3.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.3.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.3.attn_k.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.3.attn_k.suh | 1 | (5120,) | 10240 | K=3
+  blk.3.attn_k.svh | 1 | (1024,) | 2048 | K=3
+  blk.3.attn_output.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.3.attn_output.suh | 1 | (6144,) | 12288 | K=3
+  blk.3.attn_output.svh | 1 | (5120,) | 10240 | K=3
+  blk.3.attn_q.trellis | 25 | (48, 768, 320) | 23592960 | K=3
+  blk.3.attn_q.suh | 1 | (5120,) | 10240 | K=3
+  blk.3.attn_q.svh | 1 | (12288,) | 24576 | K=3
+  blk.3.attn_v.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.3.attn_v.suh | 1 | (5120,) | 10240 | K=3
+  blk.3.attn_v.svh | 1 | (1024,) | 2048 | K=3
+  blk.30.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.30.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.30.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.30.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.30.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.30.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.30.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.30.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.30.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.30.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.30.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.30.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.30.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.30.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.30.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.30.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.30.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.30.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.31.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.31.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.31.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.31.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.31.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.31.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.31.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.31.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.31.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.31.attn_k.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.31.attn_k.suh | 1 | (5120,) | 10240 | K=3
+  blk.31.attn_k.svh | 1 | (1024,) | 2048 | K=3
+  blk.31.attn_output.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.31.attn_output.suh | 1 | (6144,) | 12288 | K=3
+  blk.31.attn_output.svh | 1 | (5120,) | 10240 | K=3
+  blk.31.attn_q.trellis | 25 | (48, 768, 320) | 23592960 | K=3
+  blk.31.attn_q.suh | 1 | (5120,) | 10240 | K=3
+  blk.31.attn_q.svh | 1 | (12288,) | 24576 | K=3
+  blk.31.attn_v.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.31.attn_v.suh | 1 | (5120,) | 10240 | K=3
+  blk.31.attn_v.svh | 1 | (1024,) | 2048 | K=3
+  blk.32.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.32.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.32.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.32.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.32.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.32.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.32.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.32.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.32.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.32.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.32.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.32.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.32.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.32.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.32.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.32.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.32.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.32.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.33.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.33.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.33.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.33.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.33.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.33.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.33.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.33.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.33.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.33.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.33.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.33.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.33.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.33.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.33.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.33.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.33.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.33.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.34.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.34.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.34.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.34.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.34.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.34.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.34.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.34.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.34.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.34.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.34.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.34.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.34.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.34.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.34.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.34.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.34.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.34.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.35.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.35.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.35.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.35.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.35.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.35.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.35.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.35.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.35.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.35.attn_k.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.35.attn_k.suh | 1 | (5120,) | 10240 | K=3
+  blk.35.attn_k.svh | 1 | (1024,) | 2048 | K=3
+  blk.35.attn_output.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.35.attn_output.suh | 1 | (6144,) | 12288 | K=3
+  blk.35.attn_output.svh | 1 | (5120,) | 10240 | K=3
+  blk.35.attn_q.trellis | 25 | (48, 768, 320) | 23592960 | K=3
+  blk.35.attn_q.suh | 1 | (5120,) | 10240 | K=3
+  blk.35.attn_q.svh | 1 | (12288,) | 24576 | K=3
+  blk.35.attn_v.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.35.attn_v.suh | 1 | (5120,) | 10240 | K=3
+  blk.35.attn_v.svh | 1 | (1024,) | 2048 | K=3
+  blk.36.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.36.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.36.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.36.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.36.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.36.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.36.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.36.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.36.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.36.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.36.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.36.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.36.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.36.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.36.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.36.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.36.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.36.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.37.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.37.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.37.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.37.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.37.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.37.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.37.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.37.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.37.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.37.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.37.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.37.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.37.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.37.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.37.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.37.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.37.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.37.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.38.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.38.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.38.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.38.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.38.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.38.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.38.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.38.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.38.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.38.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.38.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.38.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.38.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.38.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.38.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.38.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.38.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.38.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.39.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.39.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.39.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.39.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.39.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.39.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.39.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.39.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.39.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.39.attn_k.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.39.attn_k.suh | 1 | (5120,) | 10240 | K=3
+  blk.39.attn_k.svh | 1 | (1024,) | 2048 | K=3
+  blk.39.attn_output.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.39.attn_output.suh | 1 | (6144,) | 12288 | K=3
+  blk.39.attn_output.svh | 1 | (5120,) | 10240 | K=3
+  blk.39.attn_q.trellis | 25 | (48, 768, 320) | 23592960 | K=3
+  blk.39.attn_q.suh | 1 | (5120,) | 10240 | K=3
+  blk.39.attn_q.svh | 1 | (12288,) | 24576 | K=3
+  blk.39.attn_v.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.39.attn_v.suh | 1 | (5120,) | 10240 | K=3
+  blk.39.attn_v.svh | 1 | (1024,) | 2048 | K=3
+  blk.4.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.4.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.4.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.4.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.4.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.4.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.4.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.4.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.4.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.4.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.4.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.4.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.4.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.4.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.4.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.4.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.4.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.4.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.40.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.40.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.40.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.40.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.40.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.40.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.40.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.40.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.40.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.40.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.40.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.40.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.40.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.40.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.40.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.40.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.40.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.40.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.41.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.41.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.41.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.41.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.41.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.41.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.41.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.41.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.41.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.41.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.41.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.41.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.41.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.41.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.41.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.41.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.41.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.41.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.42.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.42.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.42.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.42.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.42.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.42.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.42.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.42.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.42.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.42.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.42.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.42.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.42.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.42.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.42.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.42.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.42.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.42.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.43.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.43.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.43.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.43.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.43.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.43.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.43.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.43.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.43.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.43.attn_k.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.43.attn_k.suh | 1 | (5120,) | 10240 | K=3
+  blk.43.attn_k.svh | 1 | (1024,) | 2048 | K=3
+  blk.43.attn_output.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.43.attn_output.suh | 1 | (6144,) | 12288 | K=3
+  blk.43.attn_output.svh | 1 | (5120,) | 10240 | K=3
+  blk.43.attn_q.trellis | 25 | (48, 768, 320) | 23592960 | K=3
+  blk.43.attn_q.suh | 1 | (5120,) | 10240 | K=3
+  blk.43.attn_q.svh | 1 | (12288,) | 24576 | K=3
+  blk.43.attn_v.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.43.attn_v.suh | 1 | (5120,) | 10240 | K=3
+  blk.43.attn_v.svh | 1 | (1024,) | 2048 | K=3
+  blk.44.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.44.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.44.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.44.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.44.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.44.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.44.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.44.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.44.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.44.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.44.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.44.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.44.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.44.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.44.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.44.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.44.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.44.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.45.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.45.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.45.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.45.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.45.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.45.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.45.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.45.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.45.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.45.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.45.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.45.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.45.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.45.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.45.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.45.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.45.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.45.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.46.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.46.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.46.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.46.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.46.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.46.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.46.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.46.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.46.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.46.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.46.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.46.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.46.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.46.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.46.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.46.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.46.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.46.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.47.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.47.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.47.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.47.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.47.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.47.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.47.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.47.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.47.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.47.attn_k.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.47.attn_k.suh | 1 | (5120,) | 10240 | K=3
+  blk.47.attn_k.svh | 1 | (1024,) | 2048 | K=3
+  blk.47.attn_output.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.47.attn_output.suh | 1 | (6144,) | 12288 | K=3
+  blk.47.attn_output.svh | 1 | (5120,) | 10240 | K=3
+  blk.47.attn_q.trellis | 25 | (48, 768, 320) | 23592960 | K=3
+  blk.47.attn_q.suh | 1 | (5120,) | 10240 | K=3
+  blk.47.attn_q.svh | 1 | (12288,) | 24576 | K=3
+  blk.47.attn_v.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.47.attn_v.suh | 1 | (5120,) | 10240 | K=3
+  blk.47.attn_v.svh | 1 | (1024,) | 2048 | K=3
+  blk.48.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.48.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.48.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.48.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.48.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.48.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.48.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.48.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.48.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.48.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.48.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.48.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.48.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.48.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.48.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.48.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.48.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.48.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.49.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.49.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.49.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.49.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.49.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.49.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.49.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.49.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.49.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.49.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.49.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.49.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.49.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.49.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.49.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.49.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.49.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.49.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.5.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.5.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.5.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.5.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.5.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.5.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.5.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.5.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.5.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.5.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.5.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.5.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.5.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.5.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.5.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.5.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.5.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.5.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.50.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.50.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.50.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.50.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.50.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.50.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.50.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.50.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.50.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.50.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.50.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.50.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.50.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.50.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.50.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.50.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.50.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.50.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.51.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.51.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.51.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.51.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.51.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.51.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.51.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.51.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.51.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.51.attn_k.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.51.attn_k.suh | 1 | (5120,) | 10240 | K=3
+  blk.51.attn_k.svh | 1 | (1024,) | 2048 | K=3
+  blk.51.attn_output.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.51.attn_output.suh | 1 | (6144,) | 12288 | K=3
+  blk.51.attn_output.svh | 1 | (5120,) | 10240 | K=3
+  blk.51.attn_q.trellis | 25 | (48, 768, 320) | 23592960 | K=3
+  blk.51.attn_q.suh | 1 | (5120,) | 10240 | K=3
+  blk.51.attn_q.svh | 1 | (12288,) | 24576 | K=3
+  blk.51.attn_v.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.51.attn_v.suh | 1 | (5120,) | 10240 | K=3
+  blk.51.attn_v.svh | 1 | (1024,) | 2048 | K=3
+  blk.52.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.52.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.52.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.52.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.52.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.52.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.52.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.52.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.52.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.52.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.52.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.52.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.52.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.52.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.52.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.52.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.52.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.52.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.53.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.53.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.53.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.53.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.53.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.53.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.53.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.53.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.53.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.53.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.53.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.53.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.53.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.53.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.53.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.53.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.53.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.53.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.54.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.54.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.54.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.54.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.54.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.54.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.54.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.54.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.54.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.54.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.54.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.54.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.54.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.54.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.54.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.54.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.54.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.54.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.55.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.55.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.55.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.55.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.55.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.55.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.55.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.55.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.55.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.55.attn_k.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.55.attn_k.suh | 1 | (5120,) | 10240 | K=3
+  blk.55.attn_k.svh | 1 | (1024,) | 2048 | K=3
+  blk.55.attn_output.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.55.attn_output.suh | 1 | (6144,) | 12288 | K=3
+  blk.55.attn_output.svh | 1 | (5120,) | 10240 | K=3
+  blk.55.attn_q.trellis | 25 | (48, 768, 320) | 23592960 | K=3
+  blk.55.attn_q.suh | 1 | (5120,) | 10240 | K=3
+  blk.55.attn_q.svh | 1 | (12288,) | 24576 | K=3
+  blk.55.attn_v.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.55.attn_v.suh | 1 | (5120,) | 10240 | K=3
+  blk.55.attn_v.svh | 1 | (1024,) | 2048 | K=3
+  blk.56.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.56.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.56.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.56.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.56.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.56.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.56.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.56.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.56.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.56.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.56.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.56.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.56.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.56.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.56.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.56.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.56.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.56.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.57.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.57.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.57.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.57.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.57.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.57.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.57.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.57.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.57.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.57.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.57.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.57.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.57.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.57.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.57.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.57.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.57.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.57.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.58.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.58.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.58.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.58.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.58.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.58.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.58.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.58.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.58.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.58.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.58.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.58.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.58.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.58.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.58.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.58.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.58.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.58.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.59.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.59.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.59.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.59.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.59.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.59.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.59.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.59.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.59.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.59.attn_k.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.59.attn_k.suh | 1 | (5120,) | 10240 | K=3
+  blk.59.attn_k.svh | 1 | (1024,) | 2048 | K=3
+  blk.59.attn_output.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.59.attn_output.suh | 1 | (6144,) | 12288 | K=3
+  blk.59.attn_output.svh | 1 | (5120,) | 10240 | K=3
+  blk.59.attn_q.trellis | 25 | (48, 768, 320) | 23592960 | K=3
+  blk.59.attn_q.suh | 1 | (5120,) | 10240 | K=3
+  blk.59.attn_q.svh | 1 | (12288,) | 24576 | K=3
+  blk.59.attn_v.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.59.attn_v.suh | 1 | (5120,) | 10240 | K=3
+  blk.59.attn_v.svh | 1 | (1024,) | 2048 | K=3
+  blk.6.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.6.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.6.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.6.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.6.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.6.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.6.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.6.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.6.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.6.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.6.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.6.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.6.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.6.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.6.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.6.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.6.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.6.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.60.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.60.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.60.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.60.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.60.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.60.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.60.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.60.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.60.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.60.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.60.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.60.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.60.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.60.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.60.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.60.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.60.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.60.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.61.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.61.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.61.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.61.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.61.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.61.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.61.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.61.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.61.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.61.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.61.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.61.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.61.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.61.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.61.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.61.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.61.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.61.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.62.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.62.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.62.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.62.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.62.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.62.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.62.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.62.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.62.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.62.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.62.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.62.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.62.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.62.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.62.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.62.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.62.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.62.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.63.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.63.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.63.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.63.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.63.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.63.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.63.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.63.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.63.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.63.attn_k.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.63.attn_k.suh | 1 | (5120,) | 10240 | K=3
+  blk.63.attn_k.svh | 1 | (1024,) | 2048 | K=3
+  blk.63.attn_output.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.63.attn_output.suh | 1 | (6144,) | 12288 | K=3
+  blk.63.attn_output.svh | 1 | (5120,) | 10240 | K=3
+  blk.63.attn_q.trellis | 25 | (48, 768, 320) | 23592960 | K=3
+  blk.63.attn_q.suh | 1 | (5120,) | 10240 | K=3
+  blk.63.attn_q.svh | 1 | (12288,) | 24576 | K=3
+  blk.63.attn_v.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.63.attn_v.suh | 1 | (5120,) | 10240 | K=3
+  blk.63.attn_v.svh | 1 | (1024,) | 2048 | K=3
+  blk.64.nextn.eh_proj.trellis | 25 | (64, 320, 640) | 26214400 | K=4
+  blk.64.nextn.eh_proj.suh | 1 | (10240,) | 20480 | K=4
+  blk.64.nextn.eh_proj.svh | 1 | (5120,) | 10240 | K=4
+  blk.64.ffn_down.trellis | 25 | (64, 320, 1088) | 44564480 | K=4
+  blk.64.ffn_down.suh | 1 | (17408,) | 34816 | K=4
+  blk.64.ffn_down.svh | 1 | (5120,) | 10240 | K=4
+  blk.64.ffn_gate.trellis | 25 | (64, 1088, 320) | 44564480 | K=4
+  blk.64.ffn_gate.suh | 1 | (5120,) | 10240 | K=4
+  blk.64.ffn_gate.svh | 1 | (17408,) | 34816 | K=4
+  blk.64.ffn_up.trellis | 25 | (64, 1088, 320) | 44564480 | K=4
+  blk.64.ffn_up.suh | 1 | (5120,) | 10240 | K=4
+  blk.64.ffn_up.svh | 1 | (17408,) | 34816 | K=4
+  blk.64.attn_k.trellis | 25 | (64, 64, 320) | 2621440 | K=4
+  blk.64.attn_k.suh | 1 | (5120,) | 10240 | K=4
+  blk.64.attn_k.svh | 1 | (1024,) | 2048 | K=4
+  blk.64.attn_output.trellis | 25 | (64, 320, 384) | 15728640 | K=4
+  blk.64.attn_output.suh | 1 | (6144,) | 12288 | K=4
+  blk.64.attn_output.svh | 1 | (5120,) | 10240 | K=4
+  blk.64.attn_q.trellis | 25 | (64, 768, 320) | 31457280 | K=4
+  blk.64.attn_q.suh | 1 | (5120,) | 10240 | K=4
+  blk.64.attn_q.svh | 1 | (12288,) | 24576 | K=4
+  blk.64.attn_v.trellis | 25 | (64, 64, 320) | 2621440 | K=4
+  blk.64.attn_v.suh | 1 | (5120,) | 10240 | K=4
+  blk.64.attn_v.svh | 1 | (1024,) | 2048 | K=4
+  blk.7.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.7.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.7.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.7.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.7.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.7.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.7.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.7.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.7.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.7.attn_k.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.7.attn_k.suh | 1 | (5120,) | 10240 | K=3
+  blk.7.attn_k.svh | 1 | (1024,) | 2048 | K=3
+  blk.7.attn_output.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.7.attn_output.suh | 1 | (6144,) | 12288 | K=3
+  blk.7.attn_output.svh | 1 | (5120,) | 10240 | K=3
+  blk.7.attn_q.trellis | 25 | (48, 768, 320) | 23592960 | K=3
+  blk.7.attn_q.suh | 1 | (5120,) | 10240 | K=3
+  blk.7.attn_q.svh | 1 | (12288,) | 24576 | K=3
+  blk.7.attn_v.trellis | 25 | (48, 64, 320) | 1966080 | K=3
+  blk.7.attn_v.suh | 1 | (5120,) | 10240 | K=3
+  blk.7.attn_v.svh | 1 | (1024,) | 2048 | K=3
+  blk.8.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.8.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.8.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.8.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.8.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.8.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.8.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.8.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.8.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.8.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.8.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.8.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.8.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.8.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.8.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.8.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.8.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.8.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+  blk.9.attn_qkv.trellis | 25 | (48, 640, 320) | 19660800 | K=3
+  blk.9.attn_qkv.suh | 1 | (5120,) | 10240 | K=3
+  blk.9.attn_qkv.svh | 1 | (10240,) | 20480 | K=3
+  blk.9.attn_gate.trellis | 25 | (48, 384, 320) | 11796480 | K=3
+  blk.9.attn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.9.attn_gate.svh | 1 | (6144,) | 12288 | K=3
+  blk.9.ssm_out.trellis | 25 | (48, 320, 384) | 11796480 | K=3
+  blk.9.ssm_out.suh | 1 | (6144,) | 12288 | K=3
+  blk.9.ssm_out.svh | 1 | (5120,) | 10240 | K=3
+  blk.9.ffn_down.trellis | 25 | (48, 320, 1088) | 33423360 | K=3
+  blk.9.ffn_down.suh | 1 | (17408,) | 34816 | K=3
+  blk.9.ffn_down.svh | 1 | (5120,) | 10240 | K=3
+  blk.9.ffn_gate.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.9.ffn_gate.suh | 1 | (5120,) | 10240 | K=3
+  blk.9.ffn_gate.svh | 1 | (17408,) | 34816 | K=3
+  blk.9.ffn_up.trellis | 25 | (48, 1088, 320) | 33423360 | K=3
+  blk.9.ffn_up.suh | 1 | (5120,) | 10240 | K=3
+  blk.9.ffn_up.svh | 1 | (17408,) | 34816 | K=3
+
+--- VERIFY-BYTE TOTALS (trellis + suh/svh; embedding+norms excluded, read pattern differs) ---
+  K=3: matmuls= 400 trellis=   9122611200 suh/svh=  13598720 total=   9136209920 share=88.68%
+  K=4: matmuls=   8 trellis=    212336640 suh/svh=    247808 total=    212584448 share=2.06%
+  K=6: matmuls=   1 trellis=    953548800 suh/svh=    506880 total=    954055680 share=9.26%
+  VERIFY TOTAL = 10302850048 bytes = 10.303 GB
+  non-matmul (embd+norms+bias+ssm scalars) = 2600669184 (2.601 GB)
+  suh/svh unmapped = []
+
+--- CROSS-CHECK vs bench21b.journal.txt dispatch (rows<=8 matmul exec counts) ---
+  journal base: K=3: 400+400+400 gemm +1200+4800 splitk = 7200 execs (rows 28/32/42 gemm, rows 2/4 splitk)
+  journal base: K=4: 8+8+8 gemm +4280+16+2136 splitk = 6456 execs, all cb=2 specialized
+  journal base: K=6: 540+1+10 = 551 head gemv execs, 0.954 GB/full read (= output.trellis 953548800 B MATCHES)
+  advisor sec5: ~206 K=4 vs ~686 rows=4 matmuls per forward (206/686 = 30.0% by COUNT).
+  NOTE: dispatch counts are EXECUTIONS (weight reuse across rows>1); census is BYTES/read.
+  K=4 trellis subtotal above is dominated by the single MTP layer (ffn 3x44.6MB + attn + eh_proj).
+
+RESULT: K=4 share of verify bytes = 2.06% (threshold 15%)
+VERDICT: KILL NEW-1 (K=4 < 15% of verify bytes)
+ADDENDUM (denominator robustness): K=4 (trellis+suh/svh) = 212584448 B vs FULL FILE 12914559712 B = 1.65%. Vs verify-only 10302850048 B = 2.06%. Both << 15%: verdict robust to denominator choice.
+Advisor roofline cross-check: base-model file = 12701868960 B (~12.7 GB) matches STATUS-NOW.md s.11 "verify weights 12.7GB"; MTP delta = 212727752 B (~MTP layer + head, consistent with the 8 K=4 trellis tensors above).
