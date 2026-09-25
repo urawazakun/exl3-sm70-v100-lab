@@ -1,4 +1,4 @@
-# EXL3 on sm_70 (Tesla V100): a working recipe, measured limits, and what did not work
+# EXL3 on a Tesla V100 16 GB (sm_70): a 27B with 128k context on a cheap used card
 
 Notes from running a **Qwen3.8-27B EXL3 3.0 bpw** model on a single **Tesla V100-SXM2-16GB** (Volta,
 `sm_70`) with a 128k context, a vision tower, and MTP speculative decoding at k=3 — on Windows, with a
@@ -7,6 +7,19 @@ Triton-free CUDA 11.8 toolchain.
 Everything here is **measured on this machine** unless it is explicitly labelled otherwise. The negative
 results are the point of the repository: most of the "obvious" optimizations for this shape of problem do
 not pay here, and several confident-looking estimates turned out to be artefacts.
+
+## Scope: this is the "16 GB Volta card" case — and only that case
+
+**The whole point is "a 27B model, 128k context, on a used 16 GB V100"** (on the order of ¥40k second-hand
+at the time of writing, 2026-09). Every choice below follows from that: a **3.0 bpw EXL3 GGUF (12.7 GB)**, a
+**q4_0 KV cache**, and the vision tower pinned to the **CPU** so that 128k fits in 16 GB at all.
+
+**If you are choosing hardware today, do not do this.** On any FP4-capable GPU you would store the model in
+a native 4-bit block format (NVFP4/MXFP4) whose values feed the FP4 tensor cores **directly** — no
+per-weight decode, no index arithmetic, far higher throughput at comparable quality. EXL3 is a *storage*
+format whose decode targets **fp16**; it never touches FP4 silicon, so on an FP4 card it buys you the bytes
+but not the speed. What is left for a 16 GB Volta card is exactly the kernel-and-latency work in this
+repository — the trap list in §3 applies to any card, the kernel findings do not.
 
 Engine: the `exllamav100` fork (not ours; linked, not redistributed): <https://github.com/Vendetta1871/exllamav100>
 Model: a public EXL3-quantised GGUF (`huihui-…-exl3-3bpw-mtp.gguf`, 12.7 GB) — weights are not included here.
